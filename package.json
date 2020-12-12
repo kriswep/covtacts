@@ -4,7 +4,10 @@
   "private": true,
   "dependencies": {
     "@react-aria/button": "^3.2.2",
+    "@react-aria/dialog": "^3.1.2",
+    "@react-aria/focus": "^3.2.3",
     "@react-aria/label": "^3.1.1",
+    "@react-aria/overlays": "^3.5.0",
     "@react-aria/textfield": "^3.2.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",

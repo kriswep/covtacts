@@ -34,7 +34,17 @@ function ContactsProvider({ children }: ContactsProviderProps) {
           'supersecret',
           JSON.parse(encryptedContacts),
         );
-        const payload = JSON.parse(decrypted);
+        // format to use Date Objects
+        let payload: Contact[] = JSON.parse(decrypted).map(
+          (contact: Contact) => {
+            return { ...contact, date: new Date(contact.date) };
+          },
+        );
+        // Sort
+        payload.sort(
+          (prvContact, nextContact) =>
+            nextContact.date.valueOf() - prvContact.date.valueOf(),
+        );
         dispatch({ type: 'setContacts', payload });
       }
     };
@@ -115,8 +125,11 @@ function useContactsDispatch() {
   return context;
 }
 
-function useContact(): [State, Dispatch] {
-  return [useContactsState(), useContactsDispatch()];
+function useContact(): { contacts: State; dispatchContact: Dispatch } {
+  return {
+    contacts: useContactsState(),
+    dispatchContact: useContactsDispatch(),
+  };
 }
 
 export { ContactsProvider, useContact };
