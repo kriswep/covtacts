@@ -1,11 +1,47 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { useContact } from '../state/Contacts';
 import { Card, CardWrapper } from './Card';
 
 const ContactsList = () => {
   const { contacts } = useContact();
+  const { slug } = useParams();
+
+  let [relevantContacts, setRelevantContacts] = useState(contacts.contacts);
+  useEffect(() => {
+    switch (slug) {
+      case 'today':
+        setRelevantContacts(contacts.contactsToday);
+        break;
+      case 'yesterday':
+        setRelevantContacts(contacts.contactsYesterday);
+        break;
+      case 'last-seven-days':
+        setRelevantContacts(contacts.contactsLastSevenDays);
+        break;
+      case 'last-fourteen-days':
+        setRelevantContacts(contacts.contactsLastFourteenDays);
+        break;
+      case 'older':
+        setRelevantContacts(contacts.contactsOlder);
+        break;
+      case 'all':
+        setRelevantContacts(contacts.contacts);
+        break;
+      default:
+        setRelevantContacts(contacts.contacts);
+        break;
+    }
+  }, [
+    slug,
+    contacts.contactsToday,
+    contacts.contactsYesterday,
+    contacts.contactsLastSevenDays,
+    contacts.contactsLastFourteenDays,
+    contacts.contactsOlder,
+    contacts.contacts,
+  ]);
 
   if (contacts.loading) {
     return (
@@ -24,7 +60,7 @@ const ContactsList = () => {
         <h2>Your contacts</h2>
       </header>
       <CardWrapper>
-        {contacts.contacts.map((contact) => {
+        {relevantContacts.map((contact) => {
           return (
             <Card
               key={contact.key}
@@ -37,23 +73,5 @@ const ContactsList = () => {
     </section>
   );
 };
-
-const ContactWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-
-  > div {
-    flex: 1 1 15rem;
-    flex: 1 1 clamp(10rem, 30vw + 5rem, 18rem);
-    background-color: #fff;
-    border-radius: 1rem;
-    padding: 0.5rem;
-  }
-  p {
-    margin-block-start: 0;
-    margin-block-end: 0.5rem;
-  }
-`;
 
 export default ContactsList;

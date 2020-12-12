@@ -1,4 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import isToday from 'date-fns/isToday';
+import isYesterday from 'date-fns/isYesterday';
+import startOfToday from 'date-fns/startOfToday';
+import endOfToday from 'date-fns/endOfToday';
+import subDays from 'date-fns/subDays';
+import isWithinInterval from 'date-fns/isWithinInterval';
+import isBefore from 'date-fns/isBefore';
+
 import useLocalStorage from '../utils/useLocalStorage';
 import { encrypt, decrypt } from '../utils/Crypto';
 
@@ -7,8 +15,18 @@ type Action =
   | { type: 'loading' }
   | { type: 'addContact'; payload: Contact }
   | { type: 'setContacts'; payload: Contact[] };
-type Dispatch = (action: Action) => void;
-type State = { contacts: Contact[]; loading: Boolean };
+type State = {
+  loading: Boolean;
+  contacts: Contact[];
+};
+export type Dispatch = (action: Action) => void;
+export type Contacts = State & {
+  contactsToday: Contact[];
+  contactsYesterday: Contact[];
+  contactsLastSevenDays: Contact[];
+  contactsLastFourteenDays: Contact[];
+  contactsOlder: Contact[];
+};
 type ContactsProviderProps = { children: React.ReactNode };
 
 const ContactsStateContext = React.createContext<State | undefined>(undefined);
@@ -125,9 +143,50 @@ function useContactsDispatch() {
   return context;
 }
 
-function useContact(): { contacts: State; dispatchContact: Dispatch } {
+function useContact(): { contacts: Contacts; dispatchContact: Dispatch } {
+  const contacts = useContactsState();
+  const contactsToday = useMemo(
+    () => contacts.contacts.filter((contact) => isToday(contact.date)),
+    [contacts.contacts],
+  );
+  const contactsYesterday = useMemo(
+    () => contacts.contacts.filter((contact) => isYesterday(contact.date)),
+    [contacts.contacts],
+  );
+  const contactsLastSevenDays = useMemo(() => {
+    const lastSevenDaysInterval = {
+      start: subDays(startOfToday(), 7),
+      end: subDays(endOfToday(), 2),
+    };
+    return contacts.contacts.filter((contact) =>
+      isWithinInterval(contact.date, lastSevenDaysInterval),
+    );
+  }, [contacts.contacts]);
+  const contactsLastFourteenDays = useMemo(() => {
+    const lastFourteenDaysInterval = {
+      start: subDays(startOfToday(), 14),
+      end: subDays(endOfToday(), 8),
+    };
+    return contacts.contacts.filter((contact) =>
+      isWithinInterval(contact.date, lastFourteenDaysInterval),
+    );
+  }, [contacts.contacts]);
+
+  const contactsOlder = useMemo(() => {
+    const older = subDays(endOfToday(), 15);
+    return contacts.contacts.filter((contact) => isBefore(contact.date, older));
+  }, [contacts.contacts]);
+
   return {
-    contacts: useContactsState(),
+    contacts: {
+      loading: contacts.loading,
+      contacts: contacts.contacts,
+      contactsToday,
+      contactsYesterday,
+      contactsLastSevenDays,
+      contactsLastFourteenDays,
+      contactsOlder,
+    },
     dispatchContact: useContactsDispatch(),
   };
 }

@@ -1,9 +1,13 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { Link } from 'react-router-dom';
 
 type CardProps = {
   title: string;
   aside?: string;
+};
+type LinkProps = {
+  linkTo: string;
 };
 
 export const Card = ({ title, aside = '' }: CardProps) => {
@@ -17,17 +21,35 @@ export const Card = ({ title, aside = '' }: CardProps) => {
   );
 };
 
+export const LinkCard = ({
+  title,
+  aside = '',
+  linkTo,
+}: CardProps & LinkProps) => {
+  return (
+    <Link to={linkTo}>
+      <Card title={title} aside={aside} />
+    </Link>
+  );
+};
+
 export const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
 
-  > section {
+  > section,
+  > a {
     flex: 1 1 15rem;
     flex: 1 1 clamp(10rem, 30vw + 5rem, 18rem);
     background-color: #fff;
+    color: #000;
+    color: var(--main-text-color);
     border-radius: 1rem;
     padding: 0.5rem;
+  }
+  > a {
+    text-decoration: none;
   }
   p {
     margin-block-start: 0;

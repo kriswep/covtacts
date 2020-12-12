@@ -2,6 +2,12 @@ import React from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { OverlayProvider } from '@react-aria/overlays';
 import styled from 'styled-components/macro';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+} from 'react-router-dom';
 
 import { ContactsProvider } from './state/Contacts';
 import AddContact from './components/AddContact';
@@ -14,15 +20,29 @@ function App() {
       <OverlayProvider>
         <AppWrapper>
           <div>
-            <AddContact />
-            <ContactsList />
-            <LastDays />
+            <Router>
+              <Routes>
+                <Route path="/" element={<Contacts />}>
+                  <Route path="/" element={<LastDays />} />
+                  <Route path=":slug" element={<ContactsList />} />
+                </Route>
+              </Routes>
+            </Router>
           </div>
         </AppWrapper>
       </OverlayProvider>
     </ContactsProvider>
   );
 }
+
+const Contacts = () => {
+  return (
+    <>
+      <AddContact />
+      <Outlet />
+    </>
+  );
+};
 
 const AppWrapper = styled.div`
   display: flex;
