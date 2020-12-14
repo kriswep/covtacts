@@ -17,6 +17,7 @@ function Router() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path=":slug" element={<Login />} />
         </Routes>
       </BrowserRouter>
     );
