@@ -50,7 +50,7 @@ const Login = () => {
   return (
     <section>
       <header>
-        <h2>Add a new contact</h2>
+        <h2>Covtacts</h2>
       </header>
       {contacts.error.length > 0 && <p>{contacts.error}</p>}
       <form

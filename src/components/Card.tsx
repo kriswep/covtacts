@@ -1,22 +1,27 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
+import { PressEvent } from '@react-types/shared';
+
+import Button from './Button';
 
 type CardProps = {
   title: string;
   aside?: string;
+  removeAction?: (event: PressEvent) => void;
 };
 type LinkProps = {
   linkTo: string;
 };
 
-export const Card = ({ title, aside = '' }: CardProps) => {
+export const Card = ({ title, aside = '', removeAction }: CardProps) => {
   return (
     <section>
       <h3>{title}</h3>
       <aside>
         <small>{aside}</small>
       </aside>
+      {removeAction && <Button onPress={removeAction}>Remove</Button>}
     </section>
   );
 };

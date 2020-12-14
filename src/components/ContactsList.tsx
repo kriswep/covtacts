@@ -5,7 +5,7 @@ import { useContact } from '../state/Contacts';
 import { Card, CardWrapper } from './Card';
 
 const ContactsList = () => {
-  const { contacts } = useContact();
+  const { contacts, dispatchContact } = useContact();
   const { slug } = useParams();
 
   let [relevantContacts, setRelevantContacts] = useState(contacts.contacts);
@@ -43,6 +43,10 @@ const ContactsList = () => {
     contacts.contacts,
   ]);
 
+  const removeContact = (contactKey: string) => {
+    dispatchContact({ type: 'removeContact', payload: { contactKey } });
+  };
+
   if (contacts.loading) {
     return (
       <section>
@@ -66,6 +70,7 @@ const ContactsList = () => {
               key={contact.key}
               title={contact.name}
               aside={contact.date.toLocaleDateString()}
+              removeAction={(_e) => removeContact(contact.key)}
             />
           );
         })}

@@ -13,7 +13,8 @@ import { encrypt, decrypt } from '../utils/Crypto';
 export type Contact = { key: string; name: string; date: Date };
 export type Action =
   | { type: 'setPassword'; payload: { password: string } }
-  | { type: 'addContact'; payload: Contact };
+  | { type: 'addContact'; payload: Contact }
+  | { type: 'removeContact'; payload: { contactKey: string } };
 type InternalAction =
   | { type: 'loading' }
   | {
@@ -145,6 +146,17 @@ function ContactsProvider({ children }: ContactsProviderProps) {
           contacts: [...state.contacts, action.payload],
         };
       }
+      case 'removeContact': {
+        return {
+          ...state,
+          loading: false,
+          contacts: [
+            ...state.contacts.filter(
+              (contact) => contact.key !== action.payload.contactKey,
+            ),
+          ],
+        };
+      }
       default: {
         return state;
       }
@@ -162,6 +174,17 @@ function ContactsProvider({ children }: ContactsProviderProps) {
       case 'addContact': {
         dispatch({ type: 'loading' });
         writeContacts([...state.contacts, action.payload]).then(() => {
+          dispatch(action);
+        });
+        break;
+      }
+      case 'removeContact': {
+        dispatch({ type: 'loading' });
+        writeContacts([
+          ...state.contacts.filter(
+            (contact) => contact.key !== action.payload.contactKey,
+          ),
+        ]).then(() => {
           dispatch(action);
         });
         break;
