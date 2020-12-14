@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import isToday from 'date-fns/isToday';
 import isYesterday from 'date-fns/isYesterday';
 import startOfToday from 'date-fns/startOfToday';
@@ -13,13 +13,22 @@ import { encrypt, decrypt } from '../utils/Crypto';
 export type Contact = { key: string; name: string; date: Date };
 type Action =
   | { type: 'loading' }
+  | { type: 'setPassword'; payload: { password: string } }
   | { type: 'addContact'; payload: Contact }
   | { type: 'setContacts'; payload: Contact[] };
-type State = {
-  loading: Boolean;
-  contacts: Contact[];
+type InternalAction = {
+  type: 'setAuthenticated';
+  payload: { authenticated: Boolean; error?: string };
 };
 export type Dispatch = (action: Action) => void;
+export type InternalDispatch = (action: Action | InternalAction) => void;
+
+type State = {
+  error: string;
+  loading: Boolean;
+  unauthenticated: Boolean;
+  contacts: Contact[];
+};
 export type Contacts = State & {
   contactsToday: Contact[];
   contactsYesterday: Contact[];
@@ -35,10 +44,13 @@ const ContactsDispatchContext = React.createContext<Dispatch | undefined>(
 );
 
 const initialContact: State = {
-  contacts: [],
+  error: '',
   loading: false,
+  unauthenticated: true,
+  contacts: [],
 };
 function ContactsProvider({ children }: ContactsProviderProps) {
+  const [password, setPassword] = useState('');
   const [state, dispatch] = React.useReducer(contactReducer, initialContact);
   const [encryptedContacts, saveEncryptedContact] = useLocalStorage<string>(
     'contacts',
@@ -47,29 +59,53 @@ function ContactsProvider({ children }: ContactsProviderProps) {
 
   React.useEffect(() => {
     const loadContacts = async () => {
-      if (encryptedContacts) {
-        const decrypted = await decrypt(
-          'supersecret',
-          JSON.parse(encryptedContacts),
-        );
-        // format to use Date Objects
-        let payload: Contact[] = JSON.parse(decrypted).map(
-          (contact: Contact) => {
-            return { ...contact, date: new Date(contact.date) };
-          },
-        );
-        // Sort
-        payload.sort(
-          (prvContact, nextContact) =>
-            nextContact.date.valueOf() - prvContact.date.valueOf(),
-        );
-        dispatch({ type: 'setContacts', payload });
+      if (encryptedContacts && password.length > 0) {
+        try {
+          const decrypted = await decrypt(
+            password,
+            JSON.parse(encryptedContacts),
+          );
+          // format to use Date Objects
+          let payload: Contact[] = JSON.parse(decrypted).map(
+            (contact: Contact) => {
+              return { ...contact, date: new Date(contact.date) };
+            },
+          );
+          // Sort
+          payload.sort(
+            (prvContact, nextContact) =>
+              nextContact.date.valueOf() - prvContact.date.valueOf(),
+          );
+          dispatch({ type: 'setContacts', payload });
+          // everything worked, we're authenticated
+          dispatch({
+            type: 'setAuthenticated',
+            payload: {
+              authenticated: true,
+              error: '',
+            },
+          });
+        } catch (e) {
+          // Propably wrong password, reset it
+          dispatch({
+            type: 'setPassword',
+            payload: { password: '' },
+          });
+          dispatch({
+            type: 'setAuthenticated',
+            payload: {
+              authenticated: false,
+              error: 'Unable to decrypt the data',
+            },
+          });
+        }
       }
     };
 
     loadContacts();
-  }, [encryptedContacts]);
-  function contactReducer(state: State, action: Action) {
+  }, [encryptedContacts, password]);
+
+  function contactReducer(state: State, action: Action | InternalAction) {
     switch (action.type) {
       case 'loading': {
         return {
@@ -77,6 +113,23 @@ function ContactsProvider({ children }: ContactsProviderProps) {
           loading: true,
         };
       }
+      case 'setPassword': {
+        setPassword(action.payload.password);
+        return {
+          ...state,
+        };
+      }
+      case 'setAuthenticated':
+        if (!action.payload.authenticated) {
+          // unauthenticated, remove password
+          setPassword('');
+        }
+        return {
+          ...state,
+          error: action.payload.error ? action.payload.error : '',
+          unauthenticated: !action.payload.authenticated,
+        };
+
       case 'setContacts': {
         return {
           ...state,
@@ -98,7 +151,7 @@ function ContactsProvider({ children }: ContactsProviderProps) {
   }
 
   const writeContacts = async (contacts: Contact[]) => {
-    const encrypted = await encrypt('supersecret', JSON.stringify(contacts));
+    const encrypted = await encrypt(password, JSON.stringify(contacts));
     saveEncryptedContact(JSON.stringify(encrypted));
     return contacts;
   };
@@ -179,8 +232,10 @@ function useContact(): { contacts: Contacts; dispatchContact: Dispatch } {
 
   return {
     contacts: {
+      unauthenticated: contacts.unauthenticated,
       loading: contacts.loading,
       contacts: contacts.contacts,
+      error: contacts.error,
       contactsToday,
       contactsYesterday,
       contactsLastSevenDays,
