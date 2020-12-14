@@ -11,17 +11,18 @@ import useLocalStorage from '../utils/useLocalStorage';
 import { encrypt, decrypt } from '../utils/Crypto';
 
 export type Contact = { key: string; name: string; date: Date };
-type Action =
-  | { type: 'loading' }
+export type Action =
   | { type: 'setPassword'; payload: { password: string } }
-  | { type: 'addContact'; payload: Contact }
+  | { type: 'addContact'; payload: Contact };
+type InternalAction =
+  | { type: 'loading' }
+  | {
+      type: 'setAuthenticated';
+      payload: { authenticated: Boolean; error?: string };
+    }
   | { type: 'setContacts'; payload: Contact[] };
-type InternalAction = {
-  type: 'setAuthenticated';
-  payload: { authenticated: Boolean; error?: string };
-};
+
 export type Dispatch = (action: Action) => void;
-export type InternalDispatch = (action: Action | InternalAction) => void;
 
 type State = {
   error: string;
