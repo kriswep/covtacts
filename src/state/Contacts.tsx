@@ -61,7 +61,18 @@ function ContactsProvider({ children }: ContactsProviderProps) {
 
   React.useEffect(() => {
     const loadContacts = async () => {
-      if (encryptedContacts && password.length > 0) {
+      if (encryptedContacts.length < 1 && password.length > 0) {
+        // we have a password, but no stored data (initial state)
+        // we're authenticated right away
+        dispatch({
+          type: 'setAuthenticated',
+          payload: {
+            authenticated: true,
+            error: '',
+          },
+        });
+      } else if (encryptedContacts && password.length > 0) {
+        // we have a password and stored data
         try {
           const decrypted = await decrypt(
             password,
