@@ -23,7 +23,11 @@ const Field = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const Label = styled.label``;
-const Input = styled.input``;
+const Label = styled.label`
+  font-size: 1rem;
+`;
+const Input = styled.input`
+  font-size: 1rem;
+`;
 
 export default Textfield;
