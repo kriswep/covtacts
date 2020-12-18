@@ -21,13 +21,15 @@ type InternalAction =
       type: 'setAuthenticated';
       payload: { authenticated: Boolean; error?: string };
     }
-  | { type: 'setContacts'; payload: Contact[] };
+  | { type: 'setContacts'; payload: Contact[] }
+  | { type: 'setInitial'; payload: { initial: Boolean } };
 
 export type Dispatch = (action: Action) => void;
 
 type State = {
   error: string;
   loading: Boolean;
+  initial: Boolean;
   unauthenticated: Boolean;
   contacts: Contact[];
 };
@@ -48,6 +50,7 @@ const ContactsDispatchContext = React.createContext<Dispatch | undefined>(
 const initialContact: State = {
   error: '',
   loading: false,
+  initial: false,
   unauthenticated: true,
   contacts: [],
 };
@@ -58,6 +61,17 @@ function ContactsProvider({ children }: ContactsProviderProps) {
     'contacts',
     '',
   );
+
+  React.useEffect(() => {
+    if (encryptedContacts.length > 0 && state.initial) {
+      dispatch({
+        type: 'setInitial',
+        payload: { initial: false },
+      });
+    } else if (encryptedContacts.length < 1 && !state.initial) {
+      dispatch({ type: 'setInitial', payload: { initial: true } });
+    }
+  }, [encryptedContacts, state.initial]);
 
   React.useEffect(() => {
     const loadContacts = async () => {
@@ -132,6 +146,11 @@ function ContactsProvider({ children }: ContactsProviderProps) {
           ...state,
         };
       }
+      case 'setInitial':
+        return {
+          ...state,
+          initial: action.payload.initial,
+        };
       case 'setAuthenticated':
         if (!action.payload.authenticated) {
           // unauthenticated, remove password
@@ -267,8 +286,9 @@ function useContact(): { contacts: Contacts; dispatchContact: Dispatch } {
 
   return {
     contacts: {
-      unauthenticated: contacts.unauthenticated,
       loading: contacts.loading,
+      initial: contacts.initial,
+      unauthenticated: contacts.unauthenticated,
       contacts: contacts.contacts,
       error: contacts.error,
       contactsToday,

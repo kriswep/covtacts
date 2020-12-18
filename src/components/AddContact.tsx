@@ -20,6 +20,7 @@ const AddContact = () => {
         name: personName,
       },
     });
+    setPersonName('');
   };
 
   return (
@@ -27,6 +28,7 @@ const AddContact = () => {
       <header>
         <h2>Add a new contact</h2>
       </header>
+      <p>You had close contact with somebody? Log that.</p>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -34,11 +36,17 @@ const AddContact = () => {
         }}
       >
         <Textfield
-          label="The name"
+          label="With whom did you have contact?"
           value={personName}
           onChange={setPersonName}
+          required
         />
-        <DatePicker label="The date" date={date} setDate={setDate} />
+        <DatePicker
+          label="When did you have contact?"
+          date={date}
+          setDate={setDate}
+          required
+        />
         <div>
           <Button type="submit">Save</Button>
         </div>

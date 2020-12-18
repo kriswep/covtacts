@@ -1,23 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 
 import { useContact } from './state/Contacts';
+import Home from './screens/Home';
 import AddContact from './components/AddContact';
 import ContactsList from './components/ContactsList';
 import LastDays from './screens/LastDays';
 
-import Textfield from './components/Textfield';
-import Button from './components/Button';
-
 function Router() {
   const { contacts } = useContact();
-
+  console.log('initial:', contacts.initial);
   if (contacts.unauthenticated) {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path=":slug" element={<Login />} />
+          <Route path="/" element={<Home />} />
+          <Route path=":slug" element={<Home />} />
         </Routes>
       </BrowserRouter>
     );
@@ -41,41 +39,6 @@ const Contacts = () => {
       <AddContact />
       <Outlet />
     </>
-  );
-};
-
-const Login = () => {
-  const { dispatchContact, contacts } = useContact();
-  const [password, setPassword] = useState('');
-
-  return (
-    <section>
-      <header>
-        <h2>Covtacts</h2>
-      </header>
-      {contacts.error.length > 0 && <p>{contacts.error}</p>}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          dispatchContact({
-            type: 'setPassword',
-            payload: {
-              password,
-            },
-          });
-        }}
-      >
-        <Textfield
-          type="password"
-          label="Your password"
-          value={password}
-          onChange={setPassword}
-        />
-        <div>
-          <Button type="submit">Decrypt</Button>
-        </div>
-      </form>
-    </section>
   );
 };
 

@@ -78,6 +78,7 @@ type DatePickerProps = {
   date: Date;
   setDate: React.Dispatch<React.SetStateAction<Date>>;
   label: string;
+  required?: boolean;
 };
 
 const DatePicker = (props: DatePickerProps & AriaTextFieldProps) => {

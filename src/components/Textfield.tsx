@@ -5,6 +5,7 @@ import { AriaTextFieldProps } from '@react-types/textfield';
 
 type TextfieldProps = {
   onClick?: () => void;
+  required?: boolean;
 };
 
 const Textfield = (props: AriaTextFieldProps & TextfieldProps) => {
@@ -14,7 +15,12 @@ const Textfield = (props: AriaTextFieldProps & TextfieldProps) => {
   return (
     <Field>
       <Label {...labelProps}>{label}</Label>
-      <Input {...inputProps} ref={ref} onClick={props.onClick} />
+      <Input
+        required={props.required}
+        {...inputProps}
+        ref={ref}
+        onClick={props.onClick}
+      />
     </Field>
   );
 };
