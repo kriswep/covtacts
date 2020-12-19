@@ -8,9 +8,18 @@ html {
   box-sizing: inherit;
 }
 
+/*
+#4d375c,
+#8c416e,
+#cb4c67,
+#f56c49,
+#ffa10a
+*/
 :root {
-  --main-bg-color: #f1efed;
-  --main-text-colot: #000;
+  --main-bg-color: #4d375c;
+  --main-text-color-200: #e4d8ec;
+  --main-text-color-500: #8d6ca4;
+  --main-text-color-800: #2b1937;
 }
 
 body {
@@ -22,10 +31,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f1efed;
+  background-color: #4d375c;
   background-color: var(--main-bg-color);
-  color: #000;
-  color: var(--main-text-color);
+  color: #f1efed;
+  color: var(--main-text-color-200);
 }
 
 code {

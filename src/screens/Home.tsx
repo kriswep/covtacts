@@ -40,10 +40,6 @@ const Home = () => {
   return (
     <section>
       <header>
-        <h2>Covtacts</h2>
-      </header>
-
-      <header>
         <h1>Trace your contacts</h1>
       </header>
       <p>
