@@ -42,6 +42,8 @@ export const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  color: #000;
+  color: var(--main-text-color-800);
 
   > section,
   > a {
