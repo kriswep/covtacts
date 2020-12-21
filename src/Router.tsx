@@ -9,7 +9,7 @@ import LastDays from './screens/LastDays';
 
 function Router() {
   const { contacts } = useContact();
-  console.log('initial:', contacts.initial);
+
   if (contacts.unauthenticated) {
     return (
       <BrowserRouter>

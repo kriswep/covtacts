@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 // import styled from 'styled-components/macro';
 
-import Textfield from './Textfield';
+// import Textfield from './Textfield';
+import NameSuggestField from './NameSuggestField';
 import DatePicker from './DatePicker';
 import Button from './Button';
 import { useContact } from '../state/Contacts';
@@ -35,12 +36,23 @@ const AddContact = () => {
           saveContact();
         }}
       >
-        <Textfield
+        <NameSuggestField
+          value={personName}
+          setValue={setPersonName}
+          label="With whom did you have contact?"
+          required
+          // onChange={(event) => {
+          //   setPersonName(event.currentTarget.value);
+          // }}
+        />
+        {/* <Textfield
           label="With whom did you have contact?"
           value={personName}
-          onChange={setPersonName}
+          onChange={(event) => {
+            setPersonName(event.currentTarget.value);
+          }}
           required
-        />
+        /> */}
         <DatePicker
           label="When did you have contact?"
           date={date}

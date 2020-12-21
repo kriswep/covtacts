@@ -81,7 +81,15 @@ type DatePickerProps = {
   required?: boolean;
 };
 
-const DatePicker = (props: DatePickerProps & AriaTextFieldProps) => {
+const DatePicker = (
+  // props: DatePickerProps & AriaTextFieldProps
+  props: Omit<AriaTextFieldProps, 'onChange'> &
+    Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> &
+    DatePickerProps,
+  // & {
+  //   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  // },
+) => {
   const [isOpen, setIsOpen] = useState(false);
   const [ignoreNextFocus, setIgnoreNextFocus] = useState(false);
 

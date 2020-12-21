@@ -25,7 +25,10 @@ const Login = () => {
           type="password"
           label="Your password"
           value={password}
-          onChange={setPassword}
+          // onChange={setPassword}
+          onChange={(event) => {
+            setPassword(event.currentTarget.value);
+          }}
           required
         />
         <div>
