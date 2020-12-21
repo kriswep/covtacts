@@ -99,6 +99,7 @@ const DatePicker = (
         {...props}
         // type="date"
         value={props.date.toLocaleDateString()}
+        onChange={() => {}}
         onFocus={() => {
           /* We ignore the next focus event, since closing the modals focuses this input again */
           if (!ignoreNextFocus) {

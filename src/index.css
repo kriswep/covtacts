@@ -16,6 +16,7 @@ html {
 #ffa10a
 */
 :root {
+  --main-bg-color-100: #e0c5f3;
   --main-bg-color: #4d375c;
   --main-text-color-200: #e4d8ec;
   --main-text-color-500: #8d6ca4;
@@ -40,4 +41,9 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
 }

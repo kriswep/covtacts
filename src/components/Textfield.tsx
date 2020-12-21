@@ -60,6 +60,7 @@ const Label = styled.label`
 `;
 const Input = styled.input`
   font-size: 1rem;
+  padding: 0.125rem;
 `;
 
 export default Textfield;

@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Autosuggest, { InputProps, ChangeEvent } from 'react-autosuggest';
+import styled from 'styled-components/macro';
+import Autosuggest, {
+  InputProps,
+  ChangeEvent,
+  SuggestionsFetchRequestedParams,
+} from 'react-autosuggest';
 
 import Textfield from './Textfield';
 import { useContact, Contact } from '../state/Contacts';
@@ -16,11 +21,13 @@ const NameSuggestField = (props: NameSuggestFieldProps) => {
   const [value, setValue] = useState(props.value);
   const [suggestions, setSuggestions] = useState<Array<Contact>>([]);
 
+  const { setValue: setOuterValue } = props;
+
   const { contacts } = useContact();
 
   useEffect(() => {
-    props.setValue(value);
-  }, [value]);
+    setOuterValue(value);
+  }, [value, setOuterValue]);
 
   useEffect(() => {
     if (value !== props.value) {
@@ -66,7 +73,9 @@ const NameSuggestField = (props: NameSuggestFieldProps) => {
 
   // Autosuggest will call this function every time you need to update suggestions.
   // You already implemented this logic above, so just use it.
-  const onSuggestionsFetchRequested = ({ value }: any) => {
+  const onSuggestionsFetchRequested = ({
+    value,
+  }: SuggestionsFetchRequestedParams) => {
     setSuggestions(getSuggestions(value));
   };
 
@@ -86,10 +95,12 @@ const NameSuggestField = (props: NameSuggestFieldProps) => {
   //   // props.onChange(event)
   // };
 
-  const renderInputComponent = (inputProps: InputProps<Contact>) => (
+  // const renderInputComponent = (inputProps: InputProps<Contact>) => (
+  const renderInputComponent = (
+    inputProps: Omit<InputProps<Contact>, 'defaultValue'>,
+  ) => (
     <Textfield
       {...inputProps}
-      defaultValue={''}
       label={props.label}
       value={value}
       onChange={(event) => {
@@ -103,17 +114,36 @@ const NameSuggestField = (props: NameSuggestFieldProps) => {
   );
 
   return (
-    <Autosuggest
-      suggestions={suggestions}
-      // onSuggestionSelected={onSuggestionSelected}
-      onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-      onSuggestionsClearRequested={onSuggestionsClearRequested}
-      getSuggestionValue={getSuggestionValue}
-      renderSuggestion={renderSuggestion}
-      inputProps={{ value, onChange }}
-      renderInputComponent={renderInputComponent}
-    />
+    <AutosuggestStyles>
+      <Autosuggest
+        suggestions={suggestions}
+        // onSuggestionSelected={onSuggestionSelected}
+        onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={onSuggestionsClearRequested}
+        getSuggestionValue={getSuggestionValue}
+        renderSuggestion={renderSuggestion}
+        inputProps={{ value, onChange }}
+        renderInputComponent={renderInputComponent}
+      />
+    </AutosuggestStyles>
   );
 };
+
+const AutosuggestStyles = styled.div`
+  .react-autosuggest__suggestions-list {
+    background: #fff;
+    border: 1px solid;
+  }
+  .react-autosuggest__suggestion {
+    list-style-type: none;
+    color: #000;
+    color: var(--main-text-color-800);
+    padding: 0.125rem;
+  }
+  .react-autosuggest__suggestion--highlighted {
+    background-color: #e0c5f3;
+    background-color: var(--main-bg-color-100);
+  }
+`;
 
 export default NameSuggestField;
