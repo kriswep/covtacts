@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'fontsource-nunito';
+import 'fontsource-nunito/900-normal.css';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';

@@ -141,8 +141,7 @@ const AutosuggestStyles = styled.div`
     padding: 0.125rem;
   }
   .react-autosuggest__suggestion--highlighted {
-    background-color: #e0c5f3;
-    background-color: var(--main-bg-color-100);
+    background-color: var(--main-bg-color-200);
   }
 `;
 

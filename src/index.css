@@ -16,11 +16,12 @@ html {
 #ffa10a
 */
 :root {
-  --main-bg-color-100: #e0c5f3;
-  --main-bg-color: #4d375c;
-  --main-text-color-200: #e4d8ec;
-  --main-text-color-500: #8d6ca4;
-  --main-text-color-800: #2b1937;
+  --main-bg-color-200: #bbf8ed;
+  --main-bg-color-500: #46e8cd;
+  --main-bg-color-800: #10342e;
+  --main-text-color-200: #bbf8ed;
+  /* --main-text-color-500: #46e8cd; */
+  --main-text-color-800: #10342e;
 }
 
 body {
@@ -32,9 +33,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #4d375c;
-  background-color: var(--main-bg-color);
-  color: #f1efed;
+  background-color: var(--main-bg-color-800);
   color: var(--main-text-color-200);
 }
 

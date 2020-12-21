@@ -56,11 +56,17 @@ const Field = styled.div`
   flex-direction: column;
 `;
 const Label = styled.label`
-  font-size: 1rem;
+  font-size: 1.125rem;
+  font-weight: 800;
+  margin-inline-start: 0.5rem;
 `;
 const Input = styled.input`
-  font-size: 1rem;
-  padding: 0.125rem;
+  font-size: 1.125rem;
+  padding: 0.5rem;
+  color: var(--main-text-color-200);
+  background-color: var(--main-bg-color-800);
+  border: 1px solid var(--main-text-color-800);
+  border-radius: 0.625rem;
 `;
 
 export default Textfield;
