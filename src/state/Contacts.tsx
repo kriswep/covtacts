@@ -202,14 +202,14 @@ function ContactsProvider({ children }: ContactsProviderProps) {
   const asyncDispatch = (action: Action) => {
     switch (action.type) {
       case 'addContact': {
-        dispatch({ type: 'loading' });
+        // dispatch({ type: 'loading' }); // Optional: Delay it
         writeContacts([...state.contacts, action.payload]).then(() => {
           dispatch(action);
         });
         break;
       }
       case 'removeContact': {
-        dispatch({ type: 'loading' });
+        // dispatch({ type: 'loading' }); // Optional: Delay it
         writeContacts([
           ...state.contacts.filter(
             (contact) => contact.key !== action.payload.contactKey,
