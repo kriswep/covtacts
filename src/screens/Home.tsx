@@ -60,7 +60,7 @@ const Home = () => {
     <Layout>
       <Main>
         <header>
-          <h1>COVTACTS</h1>
+          <h2>COVTACTS</h2>
         </header>
         <p>Log with whom you had contact to minimise the COVID-19 spreading.</p>
         <p>
@@ -70,28 +70,38 @@ const Home = () => {
         <Login />
       </Main>
       <Side>
-        <p>
+        <header>
+          <h1>Help stop COVID-19 by tracing your contacts.</h1>
+        </header>
+        {/* <p>
           COVID-19 keeps spreading, mostly through air by people near each
           other. Social distancing and self-isolation is important, and should
           be done as much as possiple. But sometimes, you need to have close
           contact with some people for several reasons.
-        </p>
-        <p>
-          Covtacts makes it easy to track who you had contact with. So you can
-          inform them, if needs be, and stop the spreading through
-          self-isolation.
-        </p>
-        <p>Help end this pandemic.</p>
-        <p>
-          Covtacts stores the contacts you entered securely and encrypted on
-          your device. For that, we need a password.
-        </p>
+        </p> */}
+        <FeatureBlock>
+          <h2>FAST AND SIMPLE</h2>
+          <p>
+            Covtacts makes it easy to track who you had contact with. So you can
+            inform them, if needs be, and stop the spreading through
+            self-isolation.
+          </p>
+        </FeatureBlock>
+        <FeatureBlock>
+          <h2>PRIVATE BY DEFAULT</h2>
+          <p>
+            You log all contacts manually, deciding what's a close contact and
+            what not. The contacts are stored encrypted right on your device. We
+            don't send them anywhere, not even to our own servers. We simply
+            can't see them!
+          </p>
+        </FeatureBlock>
       </Side>
     </Layout>
   );
 };
 
-const Layout = styled.section`
+const Layout = styled.div`
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr;
@@ -114,10 +124,10 @@ const Layout = styled.section`
   }
 `;
 
-const Main = styled.div`
+const Main = styled.section`
   grid-area: main;
-  background-color: var(--main-bg-color-500);
   border-radius: 0 0 2.5rem 2.5rem;
+  background-color: var(--main-bg-color-500);
   color: var(--main-text-color-800);
   padding: 1rem;
 
@@ -138,7 +148,7 @@ const Main = styled.div`
     padding: 3.75rem 10rem;
   }
 
-  h1 {
+  h2 {
     margin: 0 0 4.375rem 0;
     font-weight: 800;
     font-size: 1.5rem;
@@ -152,9 +162,55 @@ const Main = styled.div`
   }
 `;
 
-const Side = styled.div`
+const Side = styled.section`
   grid-area: side;
-  min-height: 100vh;
+  background-color: var(--main-bg-color-800);
+  color: var(--main-text-color-200);
+  padding: 1rem;
+
+  @media (min-width: 38.75em) {
+    padding: 3.75rem;
+  }
+
+  @media (min-width: 50em) {
+    min-height: 100vh;
+  }
+
+  @media (min-width: 80em) {
+    padding: 3.75rem 6rem;
+  }
+
+  @media (min-width: 120em) {
+    padding: 3.75rem 10rem;
+  }
+
+  h1 {
+    margin: 0 0 4.375rem 0;
+    font-weight: 800;
+    font-size: 2.25rem;
+    line-height: 3rem;
+  }
+`;
+
+const FeatureBlock = styled.div`
+  margin: 0 0 4.375rem 0;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  h2 {
+    margin: 0 0 2rem 0;
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+  }
 `;
 
 export default Home;
