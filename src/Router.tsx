@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 
 import { useContact } from './state/Contacts';
+import { Layout, Main, Side } from './components/Layout';
 import Home from './screens/Home';
 import AddContact from './components/AddContact';
 import ContactsList from './components/ContactsList';
@@ -35,10 +36,14 @@ function Router() {
 
 const Contacts = () => {
   return (
-    <>
-      <AddContact />
-      <Outlet />
-    </>
+    <Layout>
+      <Main>
+        <AddContact />
+      </Main>
+      <Side>
+        <Outlet />
+      </Side>
+    </Layout>
   );
 };
 

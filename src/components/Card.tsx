@@ -47,12 +47,12 @@ export const CardWrapper = styled.div`
 
   > section,
   > a {
-    flex: 1 1 15rem;
-    flex: 1 1 clamp(10rem, 30vw + 5rem, 18rem);
+    flex: 1 1 13rem;
+    flex: 1 1 clamp(10rem, 30vw + 5rem, 13rem);
     background-color: #fff;
     color: #000;
     color: var(--main-text-color);
-    border-radius: 1rem;
+    border-radius: 0.625rem;
     padding: 0.5rem;
   }
   > a {

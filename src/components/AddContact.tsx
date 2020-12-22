@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-// import styled from 'styled-components/macro';
+import styled from 'styled-components/macro';
 
-// import Textfield from './Textfield';
 import NameSuggestField from './NameSuggestField';
 import DatePicker from './DatePicker';
 import Button from './Button';
@@ -41,30 +40,23 @@ const AddContact = () => {
           setValue={setPersonName}
           label="With whom did you have contact?"
           required
-          // onChange={(event) => {
-          //   setPersonName(event.currentTarget.value);
-          // }}
         />
-        {/* <Textfield
-          label="With whom did you have contact?"
-          value={personName}
-          onChange={(event) => {
-            setPersonName(event.currentTarget.value);
-          }}
-          required
-        /> */}
         <DatePicker
           label="When did you have contact?"
           date={date}
           setDate={setDate}
           required
         />
-        <div>
+        <ButtonContainer>
           <Button type="submit">Save</Button>
-        </div>
+        </ButtonContainer>
       </form>
     </section>
   );
 };
+
+const ButtonContainer = styled.div`
+  margin: 1.125rem 0 0 0;
+`;
 
 export default AddContact;
