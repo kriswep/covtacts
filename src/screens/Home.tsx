@@ -72,7 +72,7 @@ const Home = () => {
       </Main>
       <Side>
         <header>
-          <h1>Help stop COVID-19 by tracing your contacts.</h1>
+          <h1>Help stop COVID-19 by knowing your contacts.</h1>
         </header>
         {/* <p>
           COVID-19 keeps spreading, mostly through air by people near each
