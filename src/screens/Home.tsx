@@ -61,7 +61,7 @@ const Home = () => {
     <Layout>
       <Main>
         <header>
-          <h2>COVTACTS</h2>
+          <h2>COVTACT</h2>
         </header>
         <p>Log with whom you had contact to minimise the COVID-19 spreading.</p>
         <p>
@@ -83,7 +83,7 @@ const Home = () => {
         <FeatureBlock>
           <h2>FAST AND SIMPLE</h2>
           <p>
-            Covtacts makes it easy to track who you had contact with. So you can
+            Covtact makes it easy to track who you had contact with. So you can
             inform them, if needs be, and stop the spreading through
             self-isolation.
           </p>

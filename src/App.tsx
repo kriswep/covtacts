@@ -12,7 +12,7 @@ function App() {
       <OverlayProvider>
         <AppWrapper>
           {/* <Header>
-            <h2>COVTACTS</h2>
+            <h2>COVTACT</h2>
           </Header> */}
           <Main>
             <Router />

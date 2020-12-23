@@ -1,3 +1,7 @@
+# Covtact
+
+Secure contact diary which helps you to slow down COVID-19 spreading.
+
 [![Deploy to DO](https://mp-assets1.sfo2.digitaloceanspaces.com/deploy-to-do/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/kriswep/covtacts/tree/main)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
