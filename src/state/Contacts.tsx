@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { useMatomo } from '@datapunt/matomo-tracker-react';
 import isToday from 'date-fns/isToday';
 import isYesterday from 'date-fns/isYesterday';
 import startOfToday from 'date-fns/startOfToday';
@@ -61,6 +62,8 @@ function ContactsProvider({ children }: ContactsProviderProps) {
     'contacts',
     '',
   );
+
+  const { trackEvent } = useMatomo();
 
   React.useEffect(() => {
     if (encryptedContacts.length > 0 && state.initial) {
@@ -205,6 +208,7 @@ function ContactsProvider({ children }: ContactsProviderProps) {
         // dispatch({ type: 'loading' }); // Optional: Delay it
         writeContacts([...state.contacts, action.payload]).then(() => {
           dispatch(action);
+          trackEvent({ category: 'contact', action: 'add-contact' });
         });
         break;
       }
@@ -216,6 +220,7 @@ function ContactsProvider({ children }: ContactsProviderProps) {
           ),
         ]).then(() => {
           dispatch(action);
+          trackEvent({ category: 'contact', action: 'remove-contact' });
         });
         break;
       }

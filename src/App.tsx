@@ -2,11 +2,19 @@ import React from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { OverlayProvider } from '@react-aria/overlays';
 import styled from 'styled-components/macro';
+import { useMatomo } from '@datapunt/matomo-tracker-react';
 
 import { ContactsProvider } from './state/Contacts';
 import Router from './Router';
 
 function App() {
+  const { trackPageView } = useMatomo();
+
+  // Track page view
+  React.useEffect(() => {
+    trackPageView({});
+  }, []);
+
   return (
     <ContactsProvider>
       <OverlayProvider>
@@ -50,15 +58,15 @@ const AppWrapper = styled.div`
   }
 `;
 
-const Header = styled.header`
-  grid-area: header;
-`;
+// const Header = styled.header`
+//   grid-area: header;
+// `;
 const Main = styled.div`
   /* grid-area: main; */
 `;
 
-const Footer = styled.footer`
-  grid-area: footer;
-`;
+// const Footer = styled.footer`
+//   grid-area: footer;
+// `;
 
 export default App;
