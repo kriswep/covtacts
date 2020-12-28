@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components/macro';
 import { useTextField } from '@react-aria/textfield';
 import { AriaTextFieldProps } from '@react-types/textfield';
+import { FocusRing } from '@react-aria/focus';
 
 // type TextfieldProps = {
 //   onClick?: () => void;
@@ -40,13 +41,15 @@ const Textfield = (
   return (
     <Field>
       <Label {...labelProps}>{label}</Label>
-      <Input
-        required={props.required}
-        {...inputProps}
-        ref={ref}
-        onClick={props.onClick}
-        onChange={props.onChange}
-      />
+      <FocusRing focusRingClass="focus-ring">
+        <Input
+          required={props.required}
+          {...inputProps}
+          ref={ref}
+          onClick={props.onClick}
+          onChange={props.onChange}
+        />
+      </FocusRing>
     </Field>
   );
 };
@@ -69,6 +72,15 @@ const Input = styled.input`
   border-radius: 0.625rem;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   appearance: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.focus-ring {
+    outline: 1px solid dodgerblue;
+    outline-offset: 1px;
+  }
 `;
 
 export default Textfield;

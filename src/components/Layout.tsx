@@ -28,7 +28,7 @@ export const Main = styled.section`
   border-radius: 0 0 2.5rem 2.5rem;
   background-color: var(--main-bg-color-500);
   color: var(--main-text-color-800);
-  padding: 1rem;
+  padding: 2rem 1rem 2rem 1rem;
 
   @media (min-width: 38.75em) {
     padding: 3.75rem;
@@ -72,7 +72,7 @@ export const Side = styled.section`
   grid-area: side;
   background-color: var(--main-bg-color-800);
   color: var(--main-text-color-200);
-  padding: 1rem;
+  padding: 3rem 1rem 2rem 1rem;
 
   @media (min-width: 38.75em) {
     padding: 3.75rem;

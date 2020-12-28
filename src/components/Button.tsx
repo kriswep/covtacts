@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components/macro';
 import { useButton } from '@react-aria/button';
 import { AriaButtonProps } from '@react-types/button';
+import { FocusRing } from '@react-aria/focus';
 
 const StyledButton = styled.button`
   font-size: 1.125rem;
@@ -12,6 +13,19 @@ const StyledButton = styled.button`
   border: 1px solid var(--main-text-color-800);
   border-radius: 0.625rem;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  appearance: none;
+
+  &:focus {
+    outline: none;
+  }
+  &:active {
+    box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  &.focus-ring {
+    outline: 1px solid dodgerblue;
+    outline-offset: 1px;
+  }
 `;
 const Button = (props: AriaButtonProps) => {
   let ref = useRef<HTMLButtonElement>(null);
@@ -19,9 +33,11 @@ const Button = (props: AriaButtonProps) => {
   let { children } = props;
 
   return (
-    <StyledButton {...buttonProps} ref={ref}>
-      {children}
-    </StyledButton>
+    <FocusRing focusRingClass="focus-ring">
+      <StyledButton {...buttonProps} ref={ref}>
+        {children}
+      </StyledButton>
+    </FocusRing>
   );
 };
 
