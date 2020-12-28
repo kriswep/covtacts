@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import styled from 'styled-components/macro';
 
 import { useContact } from '../state/Contacts';
 import { Card, CardWrapper } from './Card';
+import Empty from '../svg/Empty';
 
 const ContactsList = () => {
   const { contacts, dispatchContact } = useContact();
@@ -49,20 +51,37 @@ const ContactsList = () => {
 
   if (contacts.loading) {
     return (
-      <section>
+      <Section>
         <header>
           <h2>Your contacts</h2>
         </header>
         <p>Loading...</p>
-      </section>
+      </Section>
     );
   }
 
   return (
-    <section>
+    <Section>
       <header>
         <h2>Your contacts</h2>
       </header>
+      {relevantContacts.length <= 0 && (
+        <div>
+          {contacts.contacts.length > 0 ? (
+            <>
+              <p>No contacts for this period.</p>
+              <Empty width="100%" height="auto" />
+              <p>Did you miss someone? No worries, you can add them now.</p>
+            </>
+          ) : (
+            <>
+              <p>No contacts yet.</p>
+              <Empty width="100%" height="auto" />
+              <p>Start by adding the contacts you had.</p>
+            </>
+          )}
+        </div>
+      )}
       <CardWrapper>
         {relevantContacts.map((contact) => {
           return (
@@ -75,8 +94,14 @@ const ContactsList = () => {
           );
         })}
       </CardWrapper>
-    </section>
+    </Section>
   );
 };
+
+const Section = styled.section`
+  p {
+    margin: 1rem 0 1rem 0;
+  }
+`;
 
 export default ContactsList;
