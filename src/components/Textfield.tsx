@@ -58,15 +58,17 @@ const Field = styled.div`
 const Label = styled.label`
   font-size: 1.125rem;
   font-weight: 800;
-  margin-inline-start: 0.5rem;
+  padding: 1.125rem 0 0.5rem 0.5rem;
 `;
 const Input = styled.input`
   font-size: 1.125rem;
   padding: 0.5rem;
-  color: var(--main-text-color-200);
-  background-color: var(--main-bg-color-800);
-  border: 1px solid var(--main-text-color-800);
+  color: var(--main-text-color-800);
+  background-color: var(--main-bg-color-200);
+  border: 1px solid var(--main-text-color-200);
   border-radius: 0.625rem;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  appearance: none;
 `;
 
 export default Textfield;

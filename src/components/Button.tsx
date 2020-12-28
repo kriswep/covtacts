@@ -11,6 +11,7 @@ const StyledButton = styled.button`
   background: none;
   border: 1px solid var(--main-text-color-800);
   border-radius: 0.625rem;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 `;
 const Button = (props: AriaButtonProps) => {
   let ref = useRef<HTMLButtonElement>(null);
