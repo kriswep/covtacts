@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react';
 import 'fontsource-nunito';
 import 'fontsource-nunito/900-normal.css';
 import './index.css';
 import App from './App';
+import './i18n';
 import * as serviceWorker from './serviceWorker';
 
 const instance = createInstance({
@@ -31,7 +32,9 @@ const instance = createInstance({
 ReactDOM.render(
   <React.StrictMode>
     <MatomoProvider value={instance}>
-      <App />
+      <Suspense fallback="loading">
+        <App />
+      </Suspense>
     </MatomoProvider>
   </React.StrictMode>,
   document.getElementById('root'),
