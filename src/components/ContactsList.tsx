@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import { useContact } from '../state/Contacts';
 import { Card, CardWrapper } from './Card';
@@ -9,6 +10,7 @@ import Empty from '../svg/Empty';
 const ContactsList = () => {
   const { contacts, dispatchContact } = useContact();
   const { slug } = useParams();
+  const { t } = useTranslation();
 
   let [relevantContacts, setRelevantContacts] = useState(contacts.contacts);
   useEffect(() => {
@@ -53,9 +55,9 @@ const ContactsList = () => {
     return (
       <Section>
         <header>
-          <h2>Your contacts</h2>
+          <h2>{t('contacts.title')}</h2>
         </header>
-        <p>Loading...</p>
+        <p>{t('loading')}</p>
       </Section>
     );
   }
@@ -63,21 +65,21 @@ const ContactsList = () => {
   return (
     <Section>
       <header>
-        <h2>Your contacts</h2>
+        <h2>{t('contacts.title')}</h2>
       </header>
       {relevantContacts.length <= 0 && (
         <div>
           {contacts.contacts.length > 0 ? (
             <>
-              <p>No contacts for this period.</p>
+              <p>{t('contacts.noContactPeriod1')}</p>
               <Empty width="100%" height="auto" />
-              <p>Did you miss someone? No worries, you can add them now.</p>
+              <p>{t('contacts.noContactPeriod2')}</p>
             </>
           ) : (
             <>
-              <p>No contacts yet.</p>
+              <p>{t('contacts.noContact1')}</p>
               <Empty width="100%" height="auto" />
-              <p>Start by adding the contacts you had.</p>
+              <p>{t('contacts.noContact2')}</p>
             </>
           )}
         </div>

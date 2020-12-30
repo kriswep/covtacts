@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 import { PressEvent } from '@react-types/shared';
+import { useTranslation } from 'react-i18next';
 
 import Button from './Button';
 
@@ -15,13 +16,17 @@ type LinkProps = {
 };
 
 export const Card = ({ title, aside = '', removeAction }: CardProps) => {
+  const { t } = useTranslation();
+
   return (
     <section>
       <h3>{title}</h3>
       <aside>
         <small>{aside}</small>
       </aside>
-      {removeAction && <Button onPress={removeAction}>Remove</Button>}
+      {removeAction && (
+        <Button onPress={removeAction}>{t('contacts.removeContact')}</Button>
+      )}
     </section>
   );
 };

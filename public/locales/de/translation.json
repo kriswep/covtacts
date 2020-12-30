@@ -1,8 +1,44 @@
 {
   "password": "Passwort",
   "decrypt": "Entschlüsseln",
-  "description": {
-    "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
-    "part2": "Switch language between english and german using buttons above."
+  "loading": "LAde...",
+  "hero": {
+    "paragraph1": "Zeichne auf, mit wem du Kontakt hattest, um die Ausbreitung von COVID-19 zu reduzieren.",
+    "paragraph2": "Gib dein Passwort ein, da wir deine Kontakte sicher verschlüsselt direkt auf deinem Gerät speichern."
+  },
+  "side": {
+    "title": "Hilf mit, COVID-19 zu stoppen, indem du deine Kontakte kennst.",
+    "featureBlock1": {
+      "title": "SCHNELL UND EINFACH",
+      "paragraph": "Covtact macht es dir einfach, deine Kontakte aufzuzeichnen. Im Fall der Fälle, kannst du so deine Kontaktpersonen informieren und die Ausreitung durch Selbstisolierung effektiv verringern."
+    },
+    "featureBlock2": {
+      "title": "RESPEKTIERT DEINE PRIVATSPHÄRE",
+      "paragraph": "Du trägst deine Kontakte manuell ein, und kannst dadurch selbst entscheiden, ob es ein enger Kontakt war. Die Daten werden dabei verschlüsselt direkt auf deinem Gerät gespeichert. Wir übertagen sie nirgendswohin, nicht mal zu unseren eigenen Servern! Wir können sie einfach nicht sehen!"
+    }
+  },
+  "contactAdd": {
+    "title": "Neuen Kontakt hinzufügen",
+    "paragraph": "Du hattest mit jemanden engen Kontakt? Zeichne das auf.",
+    "nameLabel": "Mit wem hattest du Kontakt?",
+    "dateLabel": "Wann war der Kontakt?",
+    "saveButton": "Speichern",
+    "dateClose": "Schließen"
+  },
+  "contacts": {
+    "title": "Deine Kontakte",
+    "noContact1": "Noch keine Kontakte.",
+    "noContact2": "Lege los, in dem du deine Kontakte einträgst.",
+    "noContactPeriod1": "Keine Kontakte in diesem Zeitraum.",
+    "noContactPeriod2": "Hast du jemanden vergessen? Keine Sorge, du kannst sie jetzt noch eintragen.",
+    "removeContact": "Entfernen",
+    "period": {
+      "today": "Heute",
+      "yesterday": "Gestern",
+      "last7": "Letzte 7 Tage",
+      "last14": "Letzte 14 Tage",
+      "older": "Älter",
+      "all": "Alle"
+    }
   }
 }

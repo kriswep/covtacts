@@ -11,6 +11,7 @@ import { FocusScope } from '@react-aria/focus';
 import { AriaDialogProps } from '@react-types/dialog';
 import { AriaTextFieldProps } from '@react-types/textfield';
 import ReactDatePicker from 'react-datepicker';
+import { useTranslation } from 'react-i18next';
 
 import Textfield from './Textfield';
 import Button from './Button';
@@ -92,6 +93,7 @@ const DatePicker = (
 ) => {
   const [isOpen, setIsOpen] = useState(false);
   const [ignoreNextFocus, setIgnoreNextFocus] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -140,7 +142,7 @@ const DatePicker = (
                   setIsOpen(false);
                 }}
               >
-                Close
+                {t('contactAdd.dateClose')}
               </Button>
             </form>
           </ModalDialog>

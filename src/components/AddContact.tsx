@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import NameSuggestField from './NameSuggestField';
 import DatePicker from './DatePicker';
@@ -10,6 +11,7 @@ const AddContact = () => {
   const [personName, setPersonName] = useState('');
   const [date, setDate] = useState(new Date());
   const { dispatchContact } = useContact();
+  const { t } = useTranslation();
 
   const saveContact = () => {
     dispatchContact({
@@ -26,9 +28,9 @@ const AddContact = () => {
   return (
     <section>
       <header>
-        <h2>Add a new contact</h2>
+        <h2>{t('contactAdd.title')}</h2>
       </header>
-      <p>You had close contact with somebody? Log that.</p>
+      <p>{t('contactAdd.paragraph')}</p>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -38,17 +40,17 @@ const AddContact = () => {
         <NameSuggestField
           value={personName}
           setValue={setPersonName}
-          label="With whom did you have contact?"
+          label={t('contactAdd.nameLabel')}
           required
         />
         <DatePicker
-          label="When did you have contact?"
+          label={t('contactAdd.dateLabel')}
           date={date}
           setDate={setDate}
           required
         />
         <ButtonContainer>
-          <Button type="submit">Save</Button>
+          <Button type="submit">{t('contactAdd.saveButton')}</Button>
         </ButtonContainer>
       </form>
     </section>

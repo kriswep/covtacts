@@ -1,6 +1,7 @@
 {
   "password": "Password",
   "decrypt": "Decrypt",
+  "loading": "Loading...",
   "hero": {
     "paragraph1": "Log with whom you had contact to minimise the COVID-19 spreading.",
     "paragraph2": "Enter your password below, since we’ll store your contacts securely encrypted, right on your device."
@@ -14,6 +15,30 @@
     "featureBlock2": {
       "title": "PRIVATE BY DEFAULT",
       "paragraph": "You log all contacts manually, deciding what's a close contact and what not. The contacts are stored encrypted right on your device. We don't send them anywhere, not even to our own servers. We simply can't see them!"
+    }
+  },
+  "contactAdd": {
+    "title": "Add a new contact",
+    "paragraph": "You had close contact with somebody? Log that.",
+    "nameLabel": "With whom did you have contact?",
+    "dateLabel": "When did you have contact?",
+    "saveButton": "Save",
+    "dateClose": "Close"
+  },
+  "contacts": {
+    "title": "Your contacts",
+    "noContact1": "No contacts yet.",
+    "noContact2": "Start by adding the contacts you had.",
+    "noContactPeriod1": "No contacts for this period.",
+    "noContactPeriod2": "Did you miss someone? No worries, you can add them now.",
+    "removeContact": "Remove",
+    "period": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "last7": "Last 7 Days",
+      "last14": "Last 14 Days",
+      "older": "Older",
+      "all": "All"
     }
   }
 }
