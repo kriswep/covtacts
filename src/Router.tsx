@@ -1,5 +1,12 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Outlet,
+  useLocation,
+} from 'react-router-dom';
+import { useTransition, animated } from 'react-spring';
 
 import { useContact } from './state/Contacts';
 import { Layout, Main, Side } from './components/Layout';
@@ -10,13 +17,26 @@ import LastDays from './screens/LastDays';
 
 function Router() {
   const { contacts } = useContact();
-
   if (contacts.unauthenticated) {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path=":slug" element={<Home />} />
+          <Route
+            path="/"
+            element={
+              <AnimatedComp noSlide>
+                <Home />
+              </AnimatedComp>
+            }
+          />
+          <Route
+            path=":slug"
+            element={
+              <AnimatedComp noSlide>
+                <Home />
+              </AnimatedComp>
+            }
+          />
         </Routes>
       </BrowserRouter>
     );
@@ -25,14 +45,82 @@ function Router() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Contacts />}>
-            <Route path="/" element={<LastDays />} />
-            <Route path=":slug" element={<ContactsList />} />
+            <Route
+              path="/"
+              element={
+                <AnimatedComp>
+                  <LastDays />
+                </AnimatedComp>
+              }
+            />
+            <Route
+              path=":slug"
+              element={
+                <AnimatedComp>
+                  <ContactsList />
+                </AnimatedComp>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>
     );
   }
 }
+
+const AnimatedComp = ({
+  noSlide,
+  children,
+}: {
+  noSlide?: Boolean;
+  children: React.ReactNode;
+}): any => {
+  const location = useLocation();
+  const transition = noSlide
+    ? {
+        from: {
+          opacity: 0,
+          display: 'none',
+        },
+        enter: {
+          opacity: 1,
+          display: 'block',
+        },
+        leave: {
+          opacity: 0,
+          display: 'none',
+        },
+      }
+    : {
+        from: {
+          opacity: 0,
+          transform: 'translate3d(100%,0,0)',
+          display: 'none',
+        },
+        enter: {
+          opacity: 1,
+          transform: 'translate3d(0%,0,0)',
+          display: 'block',
+        },
+        leave: {
+          opacity: 0,
+          transform: 'translate3d(-50%,0,0)',
+          display: 'none',
+        },
+      };
+
+  const transitions = useTransition(
+    location,
+    (location) => location.pathname,
+    transition,
+  );
+
+  return transitions.map(({ item: _location, props, key }) => (
+    <animated.div key={key} style={props} className="route-animation">
+      {children}
+    </animated.div>
+  ));
+};
 
 const Contacts = () => {
   return (
