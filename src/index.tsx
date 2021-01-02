@@ -32,7 +32,7 @@ const instance = createInstance({
 ReactDOM.render(
   <React.StrictMode>
     <MatomoProvider value={instance}>
-      <Suspense fallback="loading">
+      <Suspense fallback={null}>
         <App />
       </Suspense>
     </MatomoProvider>

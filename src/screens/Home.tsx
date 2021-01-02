@@ -37,9 +37,9 @@ const Login = () => {
             }}
             required
           />
-          <div>
+          <ButtonContainer>
             <Button type="submit">{t('decrypt')}</Button>
-          </div>
+          </ButtonContainer>
         </Fieldset>
       </form>
     </>
@@ -50,12 +50,16 @@ const Fieldset = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1.125rem;
 
-  @media (min-width: 23.4em) {
+  @media (min-width: 28em) {
     flex-direction: row;
     align-items: flex-end;
+    gap: 1.125rem;
   }
+`;
+
+const ButtonContainer = styled.div`
+  margin: 1.125rem 0 0 0;
 `;
 
 const Home = () => {
@@ -75,12 +79,6 @@ const Home = () => {
         <header>
           <h1>{t('side.title')}</h1>
         </header>
-        {/* <p>
-          COVID-19 keeps spreading, mostly through air by people near each
-          other. Social distancing and self-isolation is important, and should
-          be done as much as possiple. But sometimes, you need to have close
-          contact with some people for several reasons.
-        </p> */}
         <FeatureBlock>
           <h2>{t('side.featureBlock1.title')}</h2>
           <p>{t('side.featureBlock1.paragraph')}</p>

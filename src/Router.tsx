@@ -24,7 +24,7 @@ function Router() {
           <Route
             path="/"
             element={
-              <AnimatedComp noSlide>
+              <AnimatedComp>
                 <Home />
               </AnimatedComp>
             }
@@ -32,7 +32,7 @@ function Router() {
           <Route
             path=":slug"
             element={
-              <AnimatedComp noSlide>
+              <AnimatedComp>
                 <Home />
               </AnimatedComp>
             }
@@ -68,52 +68,23 @@ function Router() {
   }
 }
 
-const AnimatedComp = ({
-  noSlide,
-  children,
-}: {
-  noSlide?: Boolean;
-  children: React.ReactNode;
-}): any => {
+const AnimatedComp = ({ children }: { children: React.ReactNode }): any => {
   const location = useLocation();
-  const transition = noSlide
-    ? {
-        from: {
-          opacity: 0,
-          display: 'none',
-        },
-        enter: {
-          opacity: 1,
-          display: 'block',
-        },
-        leave: {
-          opacity: 0,
-          display: 'none',
-        },
-      }
-    : {
-        from: {
-          opacity: 0,
-          transform: 'translate3d(100%,0,0)',
-          display: 'none',
-        },
-        enter: {
-          opacity: 1,
-          transform: 'translate3d(0%,0,0)',
-          display: 'block',
-        },
-        leave: {
-          opacity: 0,
-          transform: 'translate3d(-50%,0,0)',
-          display: 'none',
-        },
-      };
 
-  const transitions = useTransition(
-    location,
-    (location) => location.pathname,
-    transition,
-  );
+  const transitions = useTransition(location, (location) => location.pathname, {
+    from: {
+      opacity: 0,
+      display: 'none',
+    },
+    enter: {
+      opacity: 1,
+      display: 'block',
+    },
+    leave: {
+      opacity: 0,
+      display: 'none',
+    },
+  });
 
   return transitions.map(({ item: _location, props, key }) => (
     <animated.div key={key} style={props} className="route-animation">
