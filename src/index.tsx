@@ -6,7 +6,7 @@ import 'fontsource-nunito/900-normal.css';
 import './index.css';
 import App from './App';
 import './i18n';
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 const instance = createInstance({
   urlBase: 'https://matomo.wetainment.com/',
@@ -42,5 +42,5 @@ ReactDOM.render(
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// Learn more about service workers: https://cra.link/PWA
+serviceWorkerRegistration.register();
