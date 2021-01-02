@@ -159,6 +159,10 @@ function ContactsProvider({ children }: ContactsProviderProps) {
           // unauthenticated, remove password
           setPassword('');
         }
+        // this is confusing, but Equality here means, logged status change. When we want to sroll to top
+        if (action.payload.authenticated === state.unauthenticated) {
+          window.scrollTo(0, 0);
+        }
         return {
           ...state,
           error: action.payload.error ? action.payload.error : '',
