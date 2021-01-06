@@ -23,7 +23,8 @@
     "nameLabel": "Mit wem hattest du Kontakt?",
     "dateLabel": "Wann war der Kontakt?",
     "saveButton": "Speichern",
-    "dateClose": "Schließen"
+    "dateClose": "Schließen",
+    "success": "Der Kontakt wurde verschlüsselt gespeichert!"
   },
   "contacts": {
     "title": "Deine Kontakte",

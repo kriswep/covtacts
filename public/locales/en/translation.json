@@ -23,7 +23,8 @@
     "nameLabel": "With whom did you have contact?",
     "dateLabel": "When did you have contact?",
     "saveButton": "Save",
-    "dateClose": "Close"
+    "dateClose": "Close",
+    "success": "The contact was enrypted and saved!"
   },
   "contacts": {
     "title": "Your contacts",
