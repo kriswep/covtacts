@@ -4,11 +4,23 @@ Secure contact diary which helps you to slow down COVID-19 spreading.
 
 [![Deploy to DO](https://mp-assets1.sfo2.digitaloceanspaces.com/deploy-to-do/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/kriswep/covtacts/tree/main)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## What is Covtact?
 
-## Available Scripts
+COVID-19 spreads through human to human interaction. Sadly, one of the most effective measures to stop it, is to reduce your contacts as much as possible.
 
-In the project directory, you can run:
+But still, sometimes you need or want to meet other people, outside your very own household. In that case, you can infect others or be infected, even if none of you feel any symptoms. Sometimes, you will only learn later. In that case, it is important you notive people you had contact during the last days, so they can self-isolate and stop spreading the illness.
+
+Covtact allows you, to keep a diary with whom you had contact. You can quickly add a name and a date. Afterwards, if need be, you can look back whom you met and inform them. Covtact is different than other contact tracing apps, in that it not requires you both to alwys run it, and change the information between each other. It requires you to take the time to add the contact, which you think where close enough to matter, manually.
+
+Covtact also doesn't store your informations centrally, or to share it somehow automatically. Instead, all data you entered are securely encrypted with an password you set, and are only stored locally on your device. So nobody, except you, can read it.
+
+## Development
+
+This project is MIT licensed. If you want to improve it, you can! Issues and PRs welcome.
+
+It is a React project, written in TypeScript and was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+Fast recap: In the project directory, you can run:
 
 ### `yarn start`
 
